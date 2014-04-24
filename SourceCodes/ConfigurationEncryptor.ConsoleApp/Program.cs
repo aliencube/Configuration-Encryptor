@@ -11,67 +11,90 @@ namespace Aliencube.ConfigurationEncryptor.ConsoleApp
         private static void Main(string[] args)
         {
             var parameter = new Parameter(args);
+            string filepath;
             switch (parameter.Direction)
             {
                 case Direction.Encrypt:
-                    EncryptSections(parameter.Filename, parameter.Sections);
+                    filepath = EncryptSections(parameter.Filename, parameter.Sections);
                     break;
                 case Direction.Decrypt:
-                    DecryptSections(parameter.Filename, parameter.Sections);
+                    filepath = DecryptSections(parameter.Filename, parameter.Sections);
                     break;
                 default:
                     throw new InvalidOperationException("Must set the direction - Encrypt or Decrypt");
             }
+
+            Console.WriteLine(ConfigurationManager.ConnectionStrings["ConsoleAppContext"].ConnectionString);
+            Console.WriteLine(ConfigurationManager.AppSettings["ConsoleAppKey"]);
+
+            Process.Start("notepad.exe", filepath);
         }
 
-        private static void EncryptSections(string filename, ConsoleApp.Sections sections)
+        private static string EncryptSections(string filename, ConsoleApp.Sections sections)
         {
             var configuration = ConfigurationManager.OpenExeConfiguration(filename);
-        }
-
-        private static void DecryptSections(string filename, ConsoleApp.Sections sections)
-        {
-            var configuration = ConfigurationManager.OpenExeConfiguration(filename);
-        }
-
-        private static void EncryptConnectionString(bool encrypt, string fileName)
-        {
-            Configuration configuration = null;
-            try
+            if (sections.HasFlag(Sections.ConnectionStrings))
             {
-                // Open the configuration file and retrieve the connectionStrings section.
-                configuration = ConfigurationManager.OpenExeConfiguration(fileName);
-                ConnectionStringsSection configSection =
-                configuration.GetSection("connectionStrings") as ConnectionStringsSection;
-                if ((!(configSection.ElementInformation.IsLocked)) &&
-                    (!(configSection.SectionInformation.IsLocked)))
+                var connectionStringsSection = configuration.GetSection("connectionStrings") as ConnectionStringsSection;
+                if (IsSectionAvailable(connectionStringsSection, Direction.Encrypt))
                 {
-                    if (encrypt && !configSection.SectionInformation.IsProtected)
-                    {
-                        //this line will encrypt the file
-                        configSection.SectionInformation.ProtectSection
-                            ("DataProtectionConfigurationProvider");
-                    }
-
-                    if (!encrypt &&
-                    configSection.SectionInformation.IsProtected)//encrypt is true so encrypt
-                    {
-                        //this line will decrypt the file.
-                        configSection.SectionInformation.UnprotectSection();
-                    }
-                    //re-save the configuration file section
-                    configSection.SectionInformation.ForceSave = true;
-                    // Save the current configuration
-
-                    configuration.Save();
-                    Process.Start("notepad.exe", configuration.FilePath);
-                    //configFile.FilePath
+                    connectionStringsSection.SectionInformation.ProtectSection("RsaProtectedConfigurationProvider");
+                    connectionStringsSection.SectionInformation.ForceSave = true;
                 }
             }
-            catch (Exception ex)
+
+            if (sections.HasFlag(Sections.AppSettings))
             {
-                Console.WriteLine(ex.Message);
+                var appSettingsSection = configuration.GetSection("appSettings") as AppSettingsSection;
+                if (IsSectionAvailable(appSettingsSection, Direction.Encrypt))
+                {
+                    appSettingsSection.SectionInformation.ProtectSection("RsaProtectedConfigurationProvider");
+                    appSettingsSection.SectionInformation.ForceSave = true;
+                }
             }
+            configuration.Save();
+            return configuration.FilePath;
+        }
+
+        private static string DecryptSections(string filename, ConsoleApp.Sections sections)
+        {
+            var configuration = ConfigurationManager.OpenExeConfiguration(filename);
+            if (sections.HasFlag(Sections.ConnectionStrings))
+            {
+                var connectionStringsSection = configuration.GetSection("connectionStrings") as ConnectionStringsSection;
+                if (IsSectionAvailable(connectionStringsSection, Direction.Decrypt))
+                {
+                    connectionStringsSection.SectionInformation.UnprotectSection();
+                    connectionStringsSection.SectionInformation.ForceSave = true;
+                }
+            }
+
+            if (sections.HasFlag(Sections.AppSettings))
+            {
+                var appSettingsSection = configuration.GetSection("appSettings") as AppSettingsSection;
+                if (IsSectionAvailable(appSettingsSection, Direction.Decrypt))
+                {
+                    appSettingsSection.SectionInformation.UnprotectSection();
+                    appSettingsSection.SectionInformation.ForceSave = true;
+                }
+            }
+            configuration.Save();
+            return configuration.FilePath;
+        }
+
+        private static bool IsSectionAvailable(ConfigurationSection section, Direction direction)
+        {
+            if (section == null || section.ElementInformation.IsLocked || section.SectionInformation.IsLocked)
+                return false;
+
+            if (direction == Direction.Encrypt)
+                return !section.SectionInformation.IsProtected;
+
+
+            if (direction == Direction.Decrypt)
+                return section.SectionInformation.IsProtected;
+
+            return false;
         }
     }
 
