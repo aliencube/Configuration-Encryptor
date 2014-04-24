@@ -3,6 +3,29 @@
 **Configuration Encryptor** provides functionality to encrypt and decrypt certain sections on App.config or Web.config.
 
 
+# Getting Started #
+
+## Installation ##
+
+For the console application, there is no need to install. Instead, [download the zip file](http://github.aliencube.org/Configuration-Encryption/downloads/ConfigurationEncryption-1.0.0.0.zip) and unzip to your preferred location.
+
+
+## Execution ##
+
+**Configuration Encryptor** console application requires the following parameters:
+
+* `/e`|`/d`: Indicates whether to encrypt or decrypt.
+* `/c:xxxx`: Specifies configuration filename. Double quote might be necessary for the file path..
+* `connectionStrings`: When specified, `connecgtionStrings` section is encrypted/decrypted.
+* `appSettings`: When specified, `appSettings` section is encrypted/decrypted.
+
+Here is a sample command:
+
+```
+Aliencube.ConfiguratioinEncryptor.ConsoleApp.exe /e /c:"Aliencube.ConfiguratioinEncryptor.ConsoleApp.exe" connectionStrings appSettings
+```
+
+
 # Contribution #
 
 Your contribution is always welcome! All your work should be done in the`dev` branch. Once you finish your work, please send us a pull request on `dev` for review.
