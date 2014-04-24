@@ -7,7 +7,7 @@
 
 ## Installation ##
 
-For the console application, there is no need to install. Instead, [download the zip file](http://github.aliencube.org/Configuration-Encryption/downloads/ConfigurationEncryption-1.0.0.0.zip) and unzip to your preferred location.
+For the console application, there is no need to install. Instead, [download the zip file](http://github.aliencube.org/Configuration-Encryptor/downloads/ConfigurationEncryptor-1.0.0.0.zip) and unzip to your preferred location.
 
 
 ## Execution ##
