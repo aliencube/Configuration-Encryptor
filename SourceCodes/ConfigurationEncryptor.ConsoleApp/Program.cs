@@ -3,18 +3,38 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ConfigurationEncryptor.ConsoleApp
+namespace Aliencube.ConfigurationEncryptor.ConsoleApp
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
+            var parameter = new Parameter(args);
+            switch (parameter.Direction)
+            {
+                case Direction.Encrypt:
+                    EncryptSections(parameter.Filename, parameter.Sections);
+                    break;
+                case Direction.Decrypt:
+                    DecryptSections(parameter.Filename, parameter.Sections);
+                    break;
+                default:
+                    throw new InvalidOperationException("Must set the direction - Encrypt or Decrypt");
+            }
         }
 
-        public static void EncryptConnectionString(bool encrypt, string fileName)
+        private static void EncryptSections(string filename, ConsoleApp.Sections sections)
+        {
+            var configuration = ConfigurationManager.OpenExeConfiguration(filename);
+        }
+
+        private static void DecryptSections(string filename, ConsoleApp.Sections sections)
+        {
+            var configuration = ConfigurationManager.OpenExeConfiguration(filename);
+        }
+
+        private static void EncryptConnectionString(bool encrypt, string fileName)
         {
             Configuration configuration = null;
             try
@@ -36,7 +56,7 @@ namespace ConfigurationEncryptor.ConsoleApp
                     if (!encrypt &&
                     configSection.SectionInformation.IsProtected)//encrypt is true so encrypt
                     {
-                        //this line will decrypt the file. 
+                        //this line will decrypt the file.
                         configSection.SectionInformation.UnprotectSection();
                     }
                     //re-save the configuration file section
@@ -45,7 +65,7 @@ namespace ConfigurationEncryptor.ConsoleApp
 
                     configuration.Save();
                     Process.Start("notepad.exe", configuration.FilePath);
-                    //configFile.FilePath 
+                    //configFile.FilePath
                 }
             }
             catch (Exception ex)
@@ -53,5 +73,61 @@ namespace ConfigurationEncryptor.ConsoleApp
                 Console.WriteLine(ex.Message);
             }
         }
+    }
+
+    internal class Parameter
+    {
+        public Parameter(string[] args)
+        {
+            this.SetParameter(args);
+        }
+
+        public Direction Direction { get; private set; }
+        public string Filename { get; private set; }
+        public Sections Sections { get; private set; }
+
+        private void SetParameter(string[] args)
+        {
+            this.Direction = Direction.None;
+            var direction = args.FirstOrDefault(p => p.ToLower() == "/e" || p.ToLower() == "/d");
+            if (!String.IsNullOrWhiteSpace(direction))
+            {
+                switch (direction)
+                {
+                    case "/e":
+                        this.Direction = Direction.Encrypt;
+                        break;
+                    case "/d":
+                        this.Direction = Direction.Decrypt;
+                        break;
+                }
+            }
+
+            var filename = args.FirstOrDefault(p => p.ToLower().StartsWith("/c:"));
+            if (!String.IsNullOrWhiteSpace(filename))
+                this.Filename = filename.Replace("/c:", "");
+
+            this.Sections = Sections.None;
+            foreach (var arg in args.Where(p => !p.ToLower().StartsWith("/")))
+            {
+                ConsoleApp.Sections result;
+                this.Sections |= Enum.TryParse(arg, true, out result) ? result : Sections.None;
+            }
+        }
+    }
+
+    enum Direction
+    {
+        None = 0,
+        Encrypt = 1,
+        Decrypt = 2
+    }
+
+    [Flags]
+    enum Sections
+    {
+        None = 0,
+        AppSettings = 1 << 0,
+        ConnectionStrings = 1 << 1,
     }
 }
