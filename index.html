@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Configuration Encryptor : This provides functionality to encrypt and decrypt certain sections on App.config or Web.config." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Configuration Encryptor</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/aliencube/Configuration-Encryptor">View on GitHub</a>
+
+          <h1 id="project_title">Configuration Encryptor</h1>
+          <h2 id="project_tagline">This provides functionality to encrypt and decrypt certain sections on App.config or Web.config.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/aliencube/Configuration-Encryptor/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/aliencube/Configuration-Encryptor/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="configuration-encryptor" class="anchor" href="#configuration-encryptor"><span class="octicon octicon-link"></span></a>Configuration Encryptor</h1>
+
+<p><strong>Configuration Encryptor</strong> provides functionality to encrypt and decrypt certain sections on App.config or Web.config.</p>
+
+<h1>
+<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting Started</h1>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>For the console application, there is no need to install. Instead, <a href="http://github.aliencube.org/Configuration-Encryption/downloads/ConfigurationEncryption-1.0.0.0.zip">download the zip file</a> and unzip to your preferred location.</p>
+
+<h2>
+<a name="execution" class="anchor" href="#execution"><span class="octicon octicon-link"></span></a>Execution</h2>
+
+<p><strong>Configuration Encryptor</strong> console application requires the following parameters:</p>
+
+<ul>
+<li>
+<code>/e</code>|<code>/d</code>: Indicates whether to encrypt or decrypt.</li>
+<li>
+<code>/c:xxxx</code>: Specifies configuration filename. Double quote might be necessary for the file path..</li>
+<li>
+<code>connectionStrings</code>: When specified, <code>connecgtionStrings</code> section is encrypted/decrypted.</li>
+<li>
+<code>appSettings</code>: When specified, <code>appSettings</code> section is encrypted/decrypted.</li>
+</ul><p>Here is a sample command:</p>
+
+<pre><code>Aliencube.ConfiguratioinEncryptor.ConsoleApp.exe /e /c:"Aliencube.ConfiguratioinEncryptor.ConsoleApp.exe" connectionStrings appSettings
+</code></pre>
+
+<h1>
+<a name="contribution" class="anchor" href="#contribution"><span class="octicon octicon-link"></span></a>Contribution</h1>
+
+<p>Your contribution is always welcome! All your work should be done in the<code>dev</code> branch. Once you finish your work, please send us a pull request on <code>dev</code> for review.</p>
+
+<h1>
+<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h1>
+
+<p><strong>Configuration Encryptor</strong> is released under <a href="http://opensource.org/licenses/MIT">MIT License</a>.</p>
+
+<blockquote>
+<p>The MIT License (MIT)</p>
+
+<p>Copyright (c) 2014 <a href="http://aliencube.org">aliencube.org</a></p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+</blockquote>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Configuration Encryptor maintained by <a href="https://github.com/aliencube">aliencube</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
