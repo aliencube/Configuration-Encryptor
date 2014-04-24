@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationEncryptor.ConsoleApp", "ConfigurationEncryptor.ConsoleApp\ConfigurationEncryptor.ConsoleApp.csproj", "{EC0E37BE-89A4-45D4-9F0D-0C92947468B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationEncryptor.SampleApp", "ConfigurationEncryptor.SampleApp\ConfigurationEncryptor.SampleApp.csproj", "{AD98F75B-8419-4342-90F0-F721EC5EF1A1}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00_Documents", "00_Documents", "{BAF844A6-FC34-4862-8C97-42DA702A2707}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Properties", "Properties", "{D3E980ED-CD7B-4118-B22B-91C9FE623E6A}"
@@ -22,10 +20,6 @@ Global
 		{EC0E37BE-89A4-45D4-9F0D-0C92947468B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC0E37BE-89A4-45D4-9F0D-0C92947468B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC0E37BE-89A4-45D4-9F0D-0C92947468B7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AD98F75B-8419-4342-90F0-F721EC5EF1A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AD98F75B-8419-4342-90F0-F721EC5EF1A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AD98F75B-8419-4342-90F0-F721EC5EF1A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AD98F75B-8419-4342-90F0-F721EC5EF1A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
